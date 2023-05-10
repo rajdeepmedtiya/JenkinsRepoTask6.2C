@@ -75,7 +75,7 @@ pipeline{
             }
             stage('Completed'){
                 steps{
-                    echo 'Task Completed!'
+                    echo 'This indicates that the steps provided in the Pipeline script was successful!'
                 }
             }
         }

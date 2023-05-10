@@ -1,0 +1,77 @@
+pipeline{
+    agent any
+        stages{
+            stage('Build'){
+                steps{
+                    echo "Building code using MSBuild automation tool for compilation and packaging purposes."
+                }
+            }
+            stage('Unit and Integration Tests'){
+                steps{
+                    echo "Doing Unit test for ensuring code function execution as expected using IntelliTest"
+                    echo "Doing Integration test for ensuring different application components work together as per expectations using Fitnesse"
+                }
+                post{
+                    success{
+                        mail to: "rajdeepmedtiya@protonmail.com",
+                        subject: "SUCCESS: Unit and integration Test",
+                        body: "Unit and Integration test was successful. Console Log Output Link: ${BUILD_URL}/consoleLog"
+                    }
+                    failure{
+                        mail to: "rajdeepmedtiya@protonmail.com",
+                        subject: "FAILURE: Unit and integration Test",
+                        body: "Unit and Integration test was failed. Console Log Output Link: ${BUILD_URL}/consoleLog"
+                    }
+                }
+            }
+            stage('Code Analysis'){
+                steps{
+                    echo "Doing code analysis for ensuring that industry standards are met, using SonarQube"
+                }
+            }
+            stage('Security Scan'){
+                steps{
+                    echo "Doing Security scan for the purpose of identifying any vulnerabilities; using CodeSec"
+                }
+                post{
+                    success{
+                        mail to: "rajdeepmedtiya@protonmail.com",
+                        subject: "SUCCESS: Security Scan",
+                        body: "Security Scan was successful. Console Log Output Link: ${BUILD_URL}/consoleLog"
+                    }
+                    failure{
+                        mail to: "rajdeepmedtiya@protonmail.com",
+                        subject: "FAILURE: Security Scan",
+                        body: "Security Scan was failed. Console Log Output Link: ${BUILD_URL}/consoleLog"
+                    }
+                }
+            }
+            stage('Deploy to Staging'){
+                steps{
+                    echo "Deploying application to staging server; Azure"
+                }
+            }
+            stage('Integration Tests on Staging'){
+                steps{
+                    echo 'Doing Integration test for staging using Fitnesse'
+                }
+                post{
+                    success{
+                        mail to: "rajdeepmedtiya@protonmail.com",
+                        subject: "SUCCESS: Staging Integration Test",
+                        body: "Integration Test for staging was successful. Console Log Output Link: ${BUILD_URL}/consoleLog"
+                    }
+                    failure{
+                        mail to: "rajdeepmedtiya@protonmail.com",
+                        subject: "FAILURE: Staging Integration Test",
+                        body: "Integration Test for staging was failed. Console Log Output Link: ${BUILD_URL}/consoleLog"
+                    }
+                }
+            }
+            stage('Deploy to Production'){
+                steps{
+                    echo 'Deploying application to production server; Azure'
+                }
+            }
+        }
+}

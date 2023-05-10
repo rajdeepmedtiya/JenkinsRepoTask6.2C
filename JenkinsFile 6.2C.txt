@@ -78,5 +78,10 @@ pipeline{
                     echo 'This indicates that the steps provided in the Pipeline script was successful!'
                 }
             }
+            stage('Example Stage'){
+                steps{
+                    echo'This is an example stage for the sake of this video.....'
+                }
+            }
         }
 }

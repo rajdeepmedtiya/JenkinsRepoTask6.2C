@@ -73,5 +73,10 @@ pipeline{
                     echo 'Deploying application to production server; Azure'
                 }
             }
+            stage('Completed'){
+                steps{
+                    echo 'Task Completed!'
+                }
+            }
         }
 }
